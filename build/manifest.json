@@ -1,0 +1,24 @@
+{
+  "name": "My Visualizations",
+  "organization": "MyOrg",
+  "description": "My first visualization package.",
+  "logoUrl": "https://logo",
+  "organizationUrl": "https://url",
+  "supportUrl": "https://url",
+  "privacyPolicyUrl": "https://url",
+  "termsOfServiceUrl": "https://url",
+  "packageUrl": "https://url",
+  "devMode": false,
+  "components": [
+    {
+      "name": "myViz",
+      "description": "My first Community Visualization",
+      "iconUrl": "https://url",
+      "resource": {
+        "js": "gs://smart_city_bucket/linechart/prod/index.js",
+        "config": "gs://smart_city_bucket/linechart/prod/index.json",
+        "css": "gs://smart_city_bucket/linechart/prod/index.css"
+      }
+    }
+  ]
+}

@@ -1,0 +1,95 @@
+{
+  "data": [
+    {
+      "id": "concepts",
+      "label": "Concepts",
+      "elements": [
+        {
+          "id": "dimension",
+          "label": "Dimensions",
+          "type": "DIMENSION",
+          "options": {
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "id": "metric",
+          "label": "Metric",
+          "type": "METRIC",
+          "options": {
+            "min": 1,
+            "max": 1
+          }
+        }        
+      ]
+    }
+  ],
+  "style": [
+    
+    {
+      "id": "yesterday",
+      "label": "Yesterday Line",
+      "elements": [
+        {
+          "id": "selectColor1",
+          "label": "Select Color",
+          "type": "FILL_COLOR",
+          "defaultValue": {
+            "color": "#3aa997"
+          }
+          
+        }
+        
+      ]
+    },
+    {
+      "id": "oneWeek",
+      "label": "One Week Before Line",
+      "elements": [
+        {
+          "id": "selectColor2",
+          "label": "Select Color",
+          "type": "FILL_COLOR",
+          "defaultValue": {
+            "color": "#FF0000"
+          }
+          
+        }
+        
+      ]
+    },
+    {
+      "id": "oneMonth",
+      "label": "One Month Before Line",
+      "elements": [
+        {
+          "id": "selectColor3",
+          "label": "Select Color",
+          "type": "FILL_COLOR",
+          "defaultValue": {
+            "color": "#0000ff"
+          }
+          
+        }
+        
+      ]
+    },
+    {
+      "id": "selected",
+      "label": "Selected Date Line",
+      "elements": [
+        {
+          "id": "selectColor4",
+          "label": "Select Color",
+          "type": "FILL_COLOR",
+          "defaultValue": {
+            "color": "#284349"
+          }
+          
+        }
+        
+      ]
+    }   
+  ]  
+}
