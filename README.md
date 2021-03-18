@@ -17,4 +17,6 @@ In order to use this chart you will need to have a data source that has date col
 
 ![image](https://user-images.githubusercontent.com/47331711/109514430-51c5a800-7aa6-11eb-930a-51822286a2e8.png)
 
+# Logo
 
+![lineLogo](https://user-images.githubusercontent.com/47331711/111690433-7606e000-882d-11eb-9877-455e39ea97c1.png)
