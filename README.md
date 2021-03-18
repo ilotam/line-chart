@@ -13,7 +13,7 @@ An example of this visualization can be seen [here](https://datastudio.google.co
 
 # Usage
 
-In order to use this chart you will need to have a data source that has date column, and a metric, for example like [this](https://docs.google.com/spreadsheets/d/1B46sHy6D_5SiSRalEDkwBbMc1rwNW-9IVfAaHMbC8B8/edit?usp=sharing).
+In order to use this chart you will need to have a data source that has date column (format should look like: 2021.03.17-01:00:00.221), and a metric, for example like [this](https://docs.google.com/spreadsheets/d/18ffCK9fshTKBP9Yo1PGuWJPWYxU1nN30YxjPEEeKENA/edit?usp=sharing).
 
 ![image](https://user-images.githubusercontent.com/47331711/109514430-51c5a800-7aa6-11eb-930a-51822286a2e8.png)
 
