@@ -29,7 +29,7 @@
     
     {
       "id": "yesterday",
-      "label": "Yesterday Line",
+      "label": "Line 1",
       "elements": [
         {
           "id": "selectColor1",
@@ -45,7 +45,7 @@
     },
     {
       "id": "oneWeek",
-      "label": "One Week Before Line",
+      "label": "Line 2",
       "elements": [
         {
           "id": "selectColor2",
@@ -61,7 +61,7 @@
     },
     {
       "id": "oneMonth",
-      "label": "One Month Before Line",
+      "label": "Line 3",
       "elements": [
         {
           "id": "selectColor3",
@@ -77,7 +77,7 @@
     },
     {
       "id": "selected",
-      "label": "Selected Date Line",
+      "label": "Line 4",
       "elements": [
         {
           "id": "selectColor4",
@@ -90,6 +90,21 @@
         }
         
       ]
-    }   
+    },
+    {
+      "id": "dots",
+      "label": "Dots",
+      "elements": [
+        {
+          "id": "showDots",
+          "label": "Show Dots",
+          "defaultValue": "true",
+          "type": "CHECKBOX"
+          
+          
+        }
+        
+      ]
+    }  
   ]  
 }
