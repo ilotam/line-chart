@@ -16,12 +16,9 @@ function split_at_index_last(value, index)
 
 function getData(tblList, dateTable, fullDateTable, data, day){
 
-  data = [];
   dateTable = [];
   fullDateTable = [];
-
   data = updateData(tblList,  dateTable, fullDateTable);
-  
   var firstPos = 0;
   var lastPos= 0;
  
@@ -242,8 +239,6 @@ const drawViz = message => {
   var weekLineColor = styleVal(message, "selectColor2");
   var monthLineColor = styleVal(message, "selectColor3");
   var selectedLineColor = styleVal(message, "selectColor4");
-  var parseDate = d3.timeParse("%Y%m%d%H%M%S");
-  var parseTime = d3.timeParse("%d %H");
   var today = new Date();
   var dd = String(today.getDate()).padStart(2, '0');
   var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
@@ -252,7 +247,6 @@ const drawViz = message => {
   var maxMetric = getMaxMetricValue(message);
 
   today = yyyy+mm+dd;
-  //console.log("today" + parseInt(today)-"1");
 
   // append the svg obgect to the body of the page
   // appends a 'group' element to 'svg'
@@ -268,7 +262,6 @@ const drawViz = message => {
   var dateTable = new Array();
   var fullDateTable = new Array();
   var data = updateData(tblList, dateTable, fullDateTable);
-  //console.log(dateTable);
   var allDays = getOptions(dateTable);
   var options = [];
   options.push("Yesterday");
@@ -301,50 +294,48 @@ const drawViz = message => {
   
   if(isToday){
 
-  d3.select("body").selectAll("input")
-              .data(options)
-              .enter()
-              .append('label')
-              .attr('for',function(d,i){ return 'a'+i; })
-              .text(function(d) { return d; })
-              .append("input")
-              .attr("type", "checkbox")
-              .attr("name", "checkboxes")
-              .attr("id", function(d) { return 'a'+d; });
+    d3.select("body").selectAll("input")
+                .data(options)
+                .enter()
+                .append('label')
+                .attr('for',function(d,i){ return 'a'+i; })
+                .text(function(d) { return d; })
+                .append("input")
+                .attr("type", "checkbox")
+                .attr("name", "checkboxes")
+                .attr("id", function(d) { return 'a'+d; });
   }else{
     if(!document.getElementById("select") && !document.getElementById("select0") ){
 
       for(i = 0; i < 3; i++){
 
-      var select = d3.select('body')
-                    .append('select')
-                    .attr("id", function(d) { return 'select'+i; })
-                    .attr('class','select');
-          
-      select
-          .selectAll('option')
-          .data(allDays).enter()
-          .append('option')
-          .attr("id", function(d) { return 'a'+d; })
-          .text(function (d) { return d; });
-      }
-      }
+        var select = d3.select('body')
+                      .append('select')
+                      .attr("id", function(d) { return 'select'+i; })
+                      .attr('class','select');
 
+        select
+            .selectAll('option')
+            .data(allDays).enter()
+            .append('option')
+            .attr("id", function(d) { return 'a'+d; })
+            .text(function (d) { return d; });
+      }
+    }
   }
    
   if(!document.getElementById("select0")){
-  console.log("hello")
-  var select = d3.select('body')
-                .append('select')
-                .attr('id', 'select')
-                .attr('class','select');
-      
-  select
-      .selectAll('option')
-      .data(allDays).enter()
-      .append('option')
-      .attr("id", function(d) { return 'a'+d; })
-      .text(function (d) { return d; });
+    var select = d3.select('body')
+                  .append('select')
+                  .attr('id', 'select')
+                  .attr('class','select');
+
+    select
+        .selectAll('option')
+        .data(allDays).enter()
+        .append('option')
+        .attr("id", function(d) { return 'a'+d; })
+        .text(function (d) { return d; });
   }
 
   document.getElementById("submit").onclick = drawLine;
@@ -352,7 +343,6 @@ const drawViz = message => {
   document.getElementById("clear").onclick = clearLine;
 
   var j = 0;
-  //console.log("width:" + width)
   for(var i = 0; i < 24 ; i++){
     svg.append("rect")
       .attr("width", width / 24)
@@ -385,21 +375,19 @@ const drawViz = message => {
     var whichLine;
 
     if(checkedBoxes){
-      console.log("xd00")
       for(i = 0; i < checkedBoxes.length; i++){
-
         var date;
         var color;
 
-        if(checkedBoxes[i].id == "aYesterday"){
+        if(checkedBoxes[i].id === "aYesterday"){
           date = currentDate - 1;
           color = yestersayLineColor;
           whichLine = "a";
-        }else if(checkedBoxes[i].id == "aOne week before"){
+        }else if(checkedBoxes[i].id === "aOne week before"){
           date = currentDate - 7;
           color = weekLineColor;
           whichLine = "b";
-        }else if(checkedBoxes[i].id == "aOne month before"){
+        }else if(checkedBoxes[i].id === "aOne month before"){
           date = getOneMonthBefore(currentDate);
           color = monthLineColor;
           whichLine = "c";
@@ -424,24 +412,22 @@ const drawViz = message => {
 
         if(styleVal(message, "showDots")){
 
-        svg.selectAll("dot")
-            .data(data)
-            .enter().append("circle")
-            .attr("r", 3.5)
-            
-            .attr("cx", function(d) { return x(d.date) ; })
-            .attr("cy", function(d) { return y(d.close) ; })
-            .attr("id", function() { return whichLine + j++; })
-            .attr("name", "dot")
-            .style("fill",'#FF7F0E')
-            .on("mouseover", mouse)
-            .on("mouseout", mousemove);
+          svg.selectAll("dot")
+              .data(data)
+              .enter().append("circle")
+              .attr("r", 3.5)
+              .attr("cx", function(d) { return x(d.date) ; })
+              .attr("cy", function(d) { return y(d.close) ; })
+              .attr("id", function() { return whichLine + j++; })
+              .attr("name", "dot")
+              .style("fill",'#FF7F0E')
+              .on("mouseover", mouse)
+              .on("mouseout", mousemove);
         } 
       }
     }
     
     function mouse(){
-
 
       whichLine = split_at_index_first(event.path[0].id, 1);
 
@@ -457,27 +443,23 @@ const drawViz = message => {
         date = getOneMonthBefore(currentDate);
       }
       data = getData(tblList, dateTable, fullDateTable, data, date);
-      //console.log(date);
-        var actualDot =  split_at_index_last( event.path[0].id, 1);
-        var coordinates= d3.pointer(event);
-        var x1 = coordinates[0];
-        var y1 = coordinates[1];
-  
-        svg.append("text")
-        .attr("id", "dotValue")
-        .data(data)
-        .attr("x",x1+10)
-        .attr("y", y1+10)
-        .text(data[actualDot].close);
-      
+      var actualDot =  split_at_index_last( event.path[0].id, 1);
+      var coordinates= d3.pointer(event);
+      var x1 = coordinates[0];
+      var y1 = coordinates[1];
+
+      svg.append("text")
+      .attr("id", "dotValue")
+      .data(data)
+      .attr("x",x1+10)
+      .attr("y", y1+10)
+      .text(data[actualDot].close);
     }
     if(selectOption != "None"){
-
       date = selectOption;
       data = getData(tblList, dateTable, fullDateTable, data, date);
       x.domain(d3.extent(data, function(d) { return d.date; }));
       y.domain([0, d3.max(data, function(d) { return d.close; })]);
-      //console.log(valueline);
       
       // Add the valueline path.
       svg.append("path")
@@ -518,18 +500,10 @@ const drawViz = message => {
     if(selectOption0 != "None"){
 
       date = selectOption0;
-      
       data = getData(tblList, dateTable, fullDateTable, data, date);
-
-      //var max = split_at_index_first( getMaxMetric(message),8);
-      
-      //console.log("max" + maxMetric);
-      //data = getData(tblList, dateTable, fullDateTable, data, max);
       x.domain(d3.extent(data, function(d) { return d.date; }));
-      //console.log(d3.max(data, function(d) { return d.close; }));
       y.domain([0,  maxMetric]);
 
-    
       // Add the valueline path.
       svg.append("path")
           .data([data])
@@ -570,7 +544,6 @@ const drawViz = message => {
 
       date = selectOption1;
       data = getData(tblList, dateTable, fullDateTable, data, date);
-      //console.log(date);
       x.domain(d3.extent(data, function(d) { return d.date; }));
       y.domain([0,  maxMetric]);
       
@@ -717,33 +690,29 @@ const drawViz = message => {
     }
 
     if(selectOption != "None"){
-
       date = selectOption;
       data = getData(tblList, dateTable, fullDateTable, data, date);
       if(actualRect < data.length){
         value4 = data[actualRect].close;
-
         date4 = split_at_index_first(split_at_index_last( String(data[actualRect].date), 4),14);
-        
       }else{
         value4 = 0;
       }
     }
+
     if(selectOption0 != "None"){
 
       date = selectOption0;
-      //console.log(date);
       data = getData(tblList, dateTable, fullDateTable, data, date);
       if(actualRect < data.length){
         value5 = data[actualRect].close;
         date5 = split_at_index_first(split_at_index_last( String(data[actualRect].date), 4),14);
-       
       }else{
         value5 = 0;
       }
     }
-    if(selectOption1 != "None"){
 
+    if(selectOption1 != "None"){
       date = selectOption1;
       data = getData(tblList, dateTable, fullDateTable, data, date);
       if(actualRect < data.length){
@@ -753,8 +722,8 @@ const drawViz = message => {
         value6 = 0;
       }
     }
-    if(selectOption2 != "None"){
 
+    if(selectOption2 != "None"){
       date = selectOption2;
       data = getData(tblList, dateTable, fullDateTable, data, date);
       if(actualRect < data.length){
@@ -767,19 +736,14 @@ const drawViz = message => {
 
     data = getData(tblList, dateTable, fullDateTable, data, split_at_index_first( getMaxMetric(message),8));
 
-
     if(value1 !=0 || value2 !=0  || value3 !=0 || value4 != 0|| value5 != 0|| value6 != 0|| value7 != 0){
-      
-      
-        
-      
       var tooltip = svg.selectAll("g")
               .data(data)
-            .enter().append("g")
-            .attr("id", "toolTip")
+              .enter().append("g")
+              .attr("id", "toolTip")
               .attr("transform", function(d, i) { return "translate(0," +  height/10 + ")"; });
 
-        tooltip.append("rect")
+      tooltip.append("rect")
         .attr("fill", "blue")
         .attr("id", "toolTipRect")
         .attr("width",   160)
@@ -856,9 +820,7 @@ function removeTooltip(){
 }
 
   function clearLine(){
-   
     var element = document.getElementById("line");
-
     while (element) {
       element = document.getElementById("line");
       if(element){
@@ -890,13 +852,9 @@ function removeTooltip(){
   }
 
   var checkedBoxes = getCheckedBoxes("checkboxes");
-  var max = split_at_index_first( getMaxMetric(message),8);
-  //console.log("max" + max);
-  data = getData(tblList, dateTable, fullDateTable, data, max);
-  console.log("max" + max)
-  
   x.domain(d3.extent(data, function(d) { return d.date; }));
   y.domain([0, d3.max(data, function(d) { return d.close; })]);
+
   // Add the X Axis
   svg.append("g")
     .attr("transform", "translate(0," + height + ")")
