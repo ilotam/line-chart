@@ -19,8 +19,8 @@ function getData(tblList, dateTable, fullDateTable, data, day){
   dateTable = [];
   fullDateTable = [];
   data = updateData(tblList,  dateTable, fullDateTable);
-  var firstPos = 0;
-  var lastPos= 0;
+  let firstPos = 0;
+  let lastPos= 0;
  
   for(var i = 0; i < dateTable.length;i++){
     if(dateTable[i] == day){
@@ -57,21 +57,21 @@ function getData(tblList, dateTable, fullDateTable, data, day){
 
 function updateData(tblList, dateTable, fullDateTable){
 
-  var counter = -1;
+  let counter = -1;
 
   // parse the date / time
-  var parseDate = d3.timeParse("%Y.%m.%d-%H:%M:%S");
-  var properDate;
+  let parseDate = d3.timeParse("%Y.%m.%d-%H:%M:%S");
+  let properDate;
 
-  var data = tblList.map(row => {
+  let data = tblList.map(row => {
     properDate = (split_at_index_first(row["dimension"][0], 19))
                 .removeCharAt(5).removeCharAt(7).removeCharAt(9).removeCharAt(11).removeCharAt(13);
     
     dateTable.push(parseInt(split_at_index_first( properDate, 8)));
 
     if(split_at_index_last( split_at_index_first(row["dimension"][0], 19),17) == "00"){
-      var split1, split2;
-      var merged;
+      let split1, split2;
+      let merged;
       split1 = split_at_index_first(row["dimension"][0], 17)
       split2 = "01"
       merged = split1 + split2
@@ -96,14 +96,14 @@ function updateData(tblList, dateTable, fullDateTable){
 
 function getOptions(dateTable){
 
-  var options = new Array();
+  let options = new Array();
   options.push("None");
   options.push(String(dateTable[0]));
 
-  for (var i = 0; i < dateTable.length; i++) {
+  for (let i = 0; i < dateTable.length; i++) {
     
-    var exsists=0;
-    for(var j = 0; j < options.length;j++){
+    let exsists=0;
+    for(let j = 0; j < options.length;j++){
        
         if(dateTable[i] == options[j]){
             exsists = 1;
@@ -120,10 +120,10 @@ function getOptions(dateTable){
 
 // Pass the checkbox name to the function
 function getCheckedBoxes(chkboxName) {
-  var checkboxes = document.getElementsByName(chkboxName);
-  var checkboxesChecked = [];
+  let checkboxes = document.getElementsByName(chkboxName);
+  let checkboxesChecked = [];
   // loop over them all
-  for (var i=0; i<checkboxes.length; i++) {
+  for (let i=0; i<checkboxes.length; i++) {
      // And stick the checked ones onto an array...
      if (checkboxes[i].checked) {
         checkboxesChecked.push(checkboxes[i]);
@@ -135,11 +135,11 @@ function getCheckedBoxes(chkboxName) {
 
 function getOneMonthBefore(date){
   //console.log(date);
-  var year = split_at_index_first(date, 4);
-  var month = split_at_index_first(split_at_index_last( date, 4),2);
-  var day = split_at_index_last(date, 6);
-  //var day = 16;
-  var days;
+  let year = split_at_index_first(date, 4);
+  let month = split_at_index_first(split_at_index_last( date, 4),2);
+  let day = split_at_index_last(date, 6);
+  //let day = 16;
+  let days;
 
   if(day == "31"){
     date -= 30;
@@ -170,9 +170,9 @@ function getDays(month){
 }
 
 function getMaxMetric(message){
-  var max = 0;
-  var maxDate;
-  var tblList = message.tables.DEFAULT;
+  let max = 0;
+  let maxDate;
+  let tblList = message.tables.DEFAULT;
   tblList.forEach(function(row) {
     if(row["metric"][0] > max){
       max = row["metric"][0];
@@ -184,9 +184,9 @@ function getMaxMetric(message){
   return maxDate;
 }
 function getMaxMetricValue(message){
-  var max = 0;
-  //var maxDate;
-  var tblList = message.tables.DEFAULT;
+  let max = 0;
+  //let maxDate;
+  let tblList = message.tables.DEFAULT;
   tblList.forEach(function(row) {
     if(row["metric"][0] > max){
       max = row["metric"][0];
@@ -197,7 +197,7 @@ function getMaxMetricValue(message){
   return max;
 }
 String.prototype.removeCharAt = function (i) {
-  var tmp = this.split(''); // convert to an array
+  let tmp = this.split(''); // convert to an array
   tmp.splice(i - 1 , 1); // remove 1 element from the array (adjusting for non-zero-indexed counts)
 
   return tmp.join(''); // reconstruct the string
@@ -222,7 +222,7 @@ const styleVal = (message, styleId) => {
 const drawViz = message => {
   
   // set the dimensions and margins of the graph
-  var margin = {top: 20, right: 20, bottom: 30, left: 50},
+  let margin = {top: 20, right: 20, bottom: 30, left: 50},
   width = 960 - margin.left - margin.right,
   height = 500 - margin.top - margin.bottom;
 
@@ -234,50 +234,50 @@ const drawViz = message => {
 
   
   
-  var currentDate = "20201116";
-  var yestersayLineColor = styleVal(message, "selectColor1");
-  var weekLineColor = styleVal(message, "selectColor2");
-  var monthLineColor = styleVal(message, "selectColor3");
-  var selectedLineColor = styleVal(message, "selectColor4");
-  var today = new Date();
-  var dd = String(today.getDate()).padStart(2, '0');
-  var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-  var yyyy = today.getFullYear();
-  var isToday = 0;
-  var maxMetric = getMaxMetricValue(message);
+  let currentDate = "20201116";
+  let yestersayLineColor = styleVal(message, "selectColor1");
+  let weekLineColor = styleVal(message, "selectColor2");
+  let monthLineColor = styleVal(message, "selectColor3");
+  let selectedLineColor = styleVal(message, "selectColor4");
+  let today = new Date();
+  let dd = String(today.getDate()).padStart(2, '0');
+  let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+  let yyyy = today.getFullYear();
+  let isToday = 0;
+  let maxMetric = getMaxMetricValue(message);
 
   today = yyyy+mm+dd;
 
   // append the svg obgect to the body of the page
   // appends a 'group' element to 'svg'
   // moves the 'group' element to the top left margin
-  var svg = d3.select("body").append("svg")
+  let svg = d3.select("body").append("svg")
   .attr("width", width + margin.left + margin.right)
   .attr("height", height + margin.top + margin.bottom)
   .append("g")
   .attr("transform",
         "translate(" + margin.left + "," + margin.top + ")");
 
-  var tblList = message.tables.DEFAULT;
-  var dateTable = new Array();
-  var fullDateTable = new Array();
-  var data = updateData(tblList, dateTable, fullDateTable);
-  var allDays = getOptions(dateTable);
-  var options = [];
+  let tblList = message.tables.DEFAULT;
+  let dateTable = new Array();
+  let fullDateTable = new Array();
+  let data = updateData(tblList, dateTable, fullDateTable);
+  let allDays = getOptions(dateTable);
+  let options = [];
   options.push("Yesterday");
   options.push("One week before");
   options.push("One month before");
 
     // set the ranges
-    var x = d3.scaleTime().range([0, width]);
-    var  y = d3.scaleLinear().range([height, 0]);
+    let x = d3.scaleTime().range([0, width]);
+    let  y = d3.scaleLinear().range([height, 0]);
   
     // define the line
-    var valueline = d3.line()
+    let valueline = d3.line()
     .x(function(d) { return x(d.date); })
     .y(function(d) {return y(d.close); });
 
-  var name = ["submit", "clear"];
+  let name = ["submit", "clear"];
   d3.selectAll("button")
               .data(name)
               .enter()
@@ -309,7 +309,7 @@ const drawViz = message => {
 
       for(i = 0; i < 3; i++){
 
-        var select = d3.select('body')
+        let select = d3.select('body')
                       .append('select')
                       .attr("id", function(d) { return 'select'+i; })
                       .attr('class','select');
@@ -325,7 +325,7 @@ const drawViz = message => {
   }
    
   if(!document.getElementById("select0")){
-    var select = d3.select('body')
+    let select = d3.select('body')
                   .append('select')
                   .attr('id', 'select')
                   .attr('class','select');
@@ -342,8 +342,8 @@ const drawViz = message => {
   document.getElementById("clear").firstChild.data = "Clear";
   document.getElementById("clear").onclick = clearLine;
 
-  var j = 0;
-  for(var i = 0; i < 24 ; i++){
+  let j = 0;
+  for(let i = 0; i < 24 ; i++){
     svg.append("rect")
       .attr("width", width / 24)
       .attr("height", height)
@@ -361,23 +361,23 @@ const drawViz = message => {
     clearLine();
     checkedBoxes = getCheckedBoxes("checkboxes");
     if(document.getElementById("select")){
-      var e = document.getElementById("select");
-      var selectOption = e.options[e.selectedIndex].text;
+      let e = document.getElementById("select");
+      let selectOption = e.options[e.selectedIndex].text;
     }else{
-      var e0 = document.getElementById("select0");
-      var selectOption0 = e0.options[e0.selectedIndex].text;
-      var e1 = document.getElementById("select1");
-      var selectOption1 = e1.options[e1.selectedIndex].text;
-      var e2 = document.getElementById("select2");
-      var selectOption2 = e2.options[e2.selectedIndex].text;
+      let e0 = document.getElementById("select0");
+      let selectOption0 = e0.options[e0.selectedIndex].text;
+      let e1 = document.getElementById("select1");
+      let selectOption1 = e1.options[e1.selectedIndex].text;
+      let e2 = document.getElementById("select2");
+      let selectOption2 = e2.options[e2.selectedIndex].text;
     }
   
-    var whichLine;
+    let whichLine;
 
     if(checkedBoxes){
       for(i = 0; i < checkedBoxes.length; i++){
         var date;
-        var color;
+        let color;
 
         if(checkedBoxes[i].id === "aYesterday"){
           date = currentDate - 1;
@@ -443,10 +443,10 @@ const drawViz = message => {
         date = getOneMonthBefore(currentDate);
       }
       data = getData(tblList, dateTable, fullDateTable, data, date);
-      var actualDot =  split_at_index_last( event.path[0].id, 1);
-      var coordinates= d3.pointer(event);
-      var x1 = coordinates[0];
-      var y1 = coordinates[1];
+      let actualDot =  split_at_index_last( event.path[0].id, 1);
+      let coordinates= d3.pointer(event);
+      let x1 = coordinates[0];
+      let y1 = coordinates[1];
 
       svg.append("text")
       .attr("id", "dotValue")
@@ -484,10 +484,10 @@ const drawViz = message => {
           .on("mouseover", (event) => {
             date = selectOption;
             data = getData(tblList, dateTable, fullDateTable, data, date);
-            var actualDot =  split_at_index_last( event.path[0].id, 1);
-            var coordinates= d3.pointer(event);
-            var x1 = coordinates[0];
-            var y1 = coordinates[1];
+            let actualDot =  split_at_index_last( event.path[0].id, 1);
+            let coordinates= d3.pointer(event);
+            let x1 = coordinates[0];
+            let y1 = coordinates[1];
 
             svg.append("text")
             .attr("id", "dotValue")
@@ -527,10 +527,10 @@ const drawViz = message => {
           .on("mouseover", (event) => {
             date = selectOption0;
             data = getData(tblList, dateTable, fullDateTable, data, date);
-            var actualDot =  split_at_index_last( event.path[0].id, 1);
-            var coordinates= d3.pointer(event);
-            var x1 = coordinates[0];
-            var y1 = coordinates[1];
+            let actualDot =  split_at_index_last( event.path[0].id, 1);
+            let coordinates= d3.pointer(event);
+            let x1 = coordinates[0];
+            let y1 = coordinates[1];
 
             svg.append("text")
             .attr("id", "dotValue")
@@ -570,10 +570,10 @@ const drawViz = message => {
           .on("mouseover", (event) => {
             date = selectOption1;
             data = getData(tblList, dateTable, fullDateTable, data, date);
-            var actualDot =  split_at_index_last( event.path[0].id, 1);
-            var coordinates= d3.pointer(event);
-            var x1 = coordinates[0];
-            var y1 = coordinates[1];
+            let actualDot =  split_at_index_last( event.path[0].id, 1);
+            let coordinates= d3.pointer(event);
+            let x1 = coordinates[0];
+            let y1 = coordinates[1];
 
             svg.append("text")
             .attr("id", "dotValue")
@@ -613,10 +613,10 @@ const drawViz = message => {
           .on("mouseover", (event) => {
             date = selectOption2;
             data = getData(tblList, dateTable, fullDateTable, data, date);
-            var actualDot =  split_at_index_last( event.path[0].id, 1);
-            var coordinates= d3.pointer(event);
-            var x1 = coordinates[0];
-            var y1 = coordinates[1];
+            let actualDot =  split_at_index_last( event.path[0].id, 1);
+            let coordinates= d3.pointer(event);
+            let x1 = coordinates[0];
+            let y1 = coordinates[1];
 
             svg.append("text")
             .attr("id", "dotValue")
@@ -630,26 +630,26 @@ const drawViz = message => {
   
   function showTooltip(){
 
-    var hiddenCoords = event.x;
-    var actualRect =  split_at_index_last( event.path[0].id, 1);
-    var value1 = 0, value2 = 0, value3 = 0, value4 = 0, value5 = 0, value6 = 0, value7 = 0;
-    var date1, date2, date3, date4 = 0, date5 = 0, date6 = 0, date7 = 0;
+    let hiddenCoords = event.x;
+    let actualRect =  split_at_index_last( event.path[0].id, 1);
+    let value1 = 0, value2 = 0, value3 = 0, value4 = 0, value5 = 0, value6 = 0, value7 = 0;
+    let date1, date2, date3, date4 = 0, date5 = 0, date6 = 0, date7 = 0;
     checkedBoxes = getCheckedBoxes("checkboxes");
     if(document.getElementById("select")){
-      var e = document.getElementById("select");
-      var selectOption = e.options[e.selectedIndex].text;
+      let e = document.getElementById("select");
+      let selectOption = e.options[e.selectedIndex].text;
     }else{
-      var e0 = document.getElementById("select0");
-      var selectOption0 = e0.options[e0.selectedIndex].text;
-      var e1 = document.getElementById("select1");
-      var selectOption1 = e1.options[e1.selectedIndex].text;
-      var e2 = document.getElementById("select2");
-      var selectOption2 = e2.options[e2.selectedIndex].text;
+      let e0 = document.getElementById("select0");
+      let selectOption0 = e0.options[e0.selectedIndex].text;
+      let e1 = document.getElementById("select1");
+      let selectOption1 = e1.options[e1.selectedIndex].text;
+      let e2 = document.getElementById("select2");
+      let selectOption2 = e2.options[e2.selectedIndex].text;
     }
 
     if(checkedBoxes){
     
-      for(var i = 0; i < checkedBoxes.length; i++){
+      for(let i = 0; i < checkedBoxes.length; i++){
 
         var date;
 
@@ -737,7 +737,7 @@ const drawViz = message => {
     data = getData(tblList, dateTable, fullDateTable, data, split_at_index_first( getMaxMetric(message),8));
 
     if(value1 !=0 || value2 !=0  || value3 !=0 || value4 != 0|| value5 != 0|| value6 != 0|| value7 != 0){
-      var tooltip = svg.selectAll("g")
+      let tooltip = svg.selectAll("g")
               .data(data)
               .enter().append("g")
               .attr("id", "toolTip")
@@ -809,7 +809,7 @@ const drawViz = message => {
 } 
 
 function removeTooltip(){
-  var element = document.getElementById("toolTip");
+  let element = document.getElementById("toolTip");
 
   while (element) {
     element = document.getElementById("toolTip");
@@ -820,7 +820,7 @@ function removeTooltip(){
 }
 
   function clearLine(){
-    var element = document.getElementById("line");
+    let element = document.getElementById("line");
     while (element) {
       element = document.getElementById("line");
       if(element){
@@ -831,9 +831,9 @@ function removeTooltip(){
     element = document.getElementsByName("dot");
 
     if(element.length != 0){
-      var len = element.length;
-      var parentNode = element[0].parentNode;
-      for(var i=0; i<len; i++)
+      let len = element.length;
+      let parentNode = element[0].parentNode;
+      for(let i=0; i<len; i++)
       {
         parentNode.removeChild(element[0]);
       }
@@ -842,7 +842,7 @@ function removeTooltip(){
 
   function mousemove() {
 
-    var element = document.getElementById("dotValue");
+    let element = document.getElementById("dotValue");
     while (element) {
       element = document.getElementById("dotValue");
       if(element){
@@ -851,7 +851,7 @@ function removeTooltip(){
     }
   }
 
-  var checkedBoxes = getCheckedBoxes("checkboxes");
+  let checkedBoxes = getCheckedBoxes("checkboxes");
   x.domain(d3.extent(data, function(d) { return d.date; }));
   y.domain([0, d3.max(data, function(d) { return d.close; })]);
 
